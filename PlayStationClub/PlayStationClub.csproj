@@ -11,6 +11,15 @@
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="5.0.14" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.14" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.14" />
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="5.0.10" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Data\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\PlayStationClub.Data\PlayStationClub.Data.csproj" />
   </ItemGroup>
 
 </Project>
