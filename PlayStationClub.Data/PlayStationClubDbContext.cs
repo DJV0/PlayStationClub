@@ -6,9 +6,9 @@ using System.Text;
 
 namespace PlayStationClub.Data
 {
-    public class ApplicationDbContext : IdentityDbContext
+    public class PlayStationClubDbContext : IdentityDbContext
     {
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
+        public PlayStationClubDbContext(DbContextOptions<PlayStationClubDbContext> options)
             : base(options)
         {
         }
