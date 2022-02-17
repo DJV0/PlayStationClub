@@ -20,7 +20,7 @@ namespace PlayStationClub.Data.Configuration
             builder.HasOne(g => g.Image)
                 .WithOne(i => i.Game)
                 .HasForeignKey<Game>(g=>g.ImageId)
-                .OnDelete(DeleteBehavior.Cascade);
+                .OnDelete(DeleteBehavior.Restrict);
             builder.HasMany(g => g.Categories)
                 .WithMany(c => c.Games)
                 .UsingEntity(e => e.HasData(
