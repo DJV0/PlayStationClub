@@ -21,6 +21,19 @@ namespace PlayStationClub.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Images",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    FileName = table.Column<string>(type: "text", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Images", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Games",
                 columns: table => new
                 {
@@ -28,11 +41,18 @@ namespace PlayStationClub.Data.Migrations
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Name = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
                     Description = table.Column<string>(type: "text", nullable: false),
-                    PlayersNumber = table.Column<byte>(type: "smallint", nullable: false)
+                    PlayersNumber = table.Column<byte>(type: "smallint", nullable: false, defaultValue: (byte)1),
+                    ImageId = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Games", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Games_Images_ImageId",
+                        column: x => x.ImageId,
+                        principalTable: "Images",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -59,26 +79,6 @@ namespace PlayStationClub.Data.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.CreateTable(
-                name: "Images",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    FileName = table.Column<string>(type: "text", nullable: false),
-                    GameId = table.Column<int>(type: "integer", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Images", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Images_Games_GameId",
-                        column: x => x.GameId,
-                        principalTable: "Games",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
             migrationBuilder.InsertData(
                 table: "Categories",
                 columns: new[] { "Id", "Name" },
@@ -90,19 +90,19 @@ namespace PlayStationClub.Data.Migrations
                 });
 
             migrationBuilder.InsertData(
+                table: "Images",
+                columns: new[] { "Id", "FileName" },
+                values: new object[] { 1, "game-mortal-kombat" });
+
+            migrationBuilder.InsertData(
                 table: "Games",
-                columns: new[] { "Id", "Description", "Name", "PlayersNumber" },
-                values: new object[] { 1, "Новая часть культового файтинга Мортал Комбат, с привычной механикой но множеством нововведений. По мимо новых механик вас ждет обновленная графика и новые персонажи. В остальном это старый добрый МК приходи делать фаталити друзьям.", "mortal kombat 11", (byte)2 });
+                columns: new[] { "Id", "Description", "ImageId", "Name", "PlayersNumber" },
+                values: new object[] { 1, "Новая часть культового файтинга Мортал Комбат, с привычной механикой но множеством нововведений. По мимо новых механик вас ждет обновленная графика и новые персонажи. В остальном это старый добрый МК приходи делать фаталити друзьям.", 1, "mortal kombat 11", (byte)2 });
 
             migrationBuilder.InsertData(
                 table: "CategoryGame",
                 columns: new[] { "CategoriesId", "GamesId" },
                 values: new object[] { 1, 1 });
-
-            migrationBuilder.InsertData(
-                table: "Images",
-                columns: new[] { "Id", "FileName", "GameId" },
-                values: new object[] { 1, "game-mortal-kombat", 1 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_CategoryGame_GamesId",
@@ -110,15 +110,15 @@ namespace PlayStationClub.Data.Migrations
                 column: "GamesId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Images_FileName",
-                table: "Images",
-                column: "FileName",
+                name: "IX_Games_ImageId",
+                table: "Games",
+                column: "ImageId",
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Images_GameId",
+                name: "IX_Images_FileName",
                 table: "Images",
-                column: "GameId",
+                column: "FileName",
                 unique: true);
         }
 
@@ -128,13 +128,13 @@ namespace PlayStationClub.Data.Migrations
                 name: "CategoryGame");
 
             migrationBuilder.DropTable(
-                name: "Images");
-
-            migrationBuilder.DropTable(
                 name: "Categories");
 
             migrationBuilder.DropTable(
                 name: "Games");
+
+            migrationBuilder.DropTable(
+                name: "Images");
         }
     }
 }

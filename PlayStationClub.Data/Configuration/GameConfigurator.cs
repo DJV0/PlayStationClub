@@ -15,11 +15,11 @@ namespace PlayStationClub.Data.Configuration
         {
             builder.Property(g => g.Name).IsRequired().HasMaxLength(100);
             builder.Property(g => g.Description).IsRequired();
-            builder.Property(g => g.PlayersNumber).IsRequired();
+            builder.Property(g => g.PlayersNumber).IsRequired().HasDefaultValue(1);
 
             builder.HasOne(g => g.Image)
                 .WithOne(i => i.Game)
-                .HasForeignKey<Image>(i=>i.GameId)
+                .HasForeignKey<Game>(g=>g.ImageId)
                 .OnDelete(DeleteBehavior.Cascade);
             builder.HasMany(g => g.Categories)
                 .WithMany(c => c.Games)
@@ -33,7 +33,8 @@ namespace PlayStationClub.Data.Configuration
                     Id = 1,
                     Name = "mortal kombat 11",
                     Description = "Новая часть культового файтинга Мортал Комбат, с привычной механикой но множеством нововведений. По мимо новых механик вас ждет обновленная графика и новые персонажи. В остальном это старый добрый МК приходи делать фаталити друзьям.",
-                    PlayersNumber = 2
+                    PlayersNumber = 2,
+                    ImageId = 1
                 }
                 );
         }

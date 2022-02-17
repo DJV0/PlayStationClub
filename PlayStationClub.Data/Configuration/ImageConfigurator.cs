@@ -13,7 +13,7 @@ namespace PlayStationClub.Data.Configuration
 
 
             builder.HasData(
-                new Image { Id = 1, FileName = "game-mortal-kombat", GameId = 1 }
+                new Image { Id = 1, FileName = "game-mortal-kombat" }
                 //new Image { Id = 2, FileName = "photo-fight" },
                 //new Image { Id = 3, FileName = "photo-race" },
                 //new Image { Id = 4, FileName = "photo-sports" },

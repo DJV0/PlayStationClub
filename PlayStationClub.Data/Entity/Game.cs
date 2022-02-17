@@ -12,6 +12,7 @@ namespace PlayStationClub.Data.Entity
         public string Name { get; set; }
         public string Description { get; set; }
         public byte PlayersNumber { get; set; }
+        public int ImageId { get; set; }
         public Image Image { get; set; }
 
         public ICollection<Category> Categories { get; set; }

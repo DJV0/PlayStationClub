@@ -284,15 +284,23 @@ namespace PlayStationClub.Data.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<int>("ImageId")
+                        .HasColumnType("integer");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("character varying(100)");
 
                     b.Property<byte>("PlayersNumber")
-                        .HasColumnType("smallint");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("smallint")
+                        .HasDefaultValue((byte)1);
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ImageId")
+                        .IsUnique();
 
                     b.ToTable("Games");
 
@@ -301,6 +309,7 @@ namespace PlayStationClub.Data.Migrations
                         {
                             Id = 1,
                             Description = "Новая часть культового файтинга Мортал Комбат, с привычной механикой но множеством нововведений. По мимо новых механик вас ждет обновленная графика и новые персонажи. В остальном это старый добрый МК приходи делать фаталити друзьям.",
+                            ImageId = 1,
                             Name = "mortal kombat 11",
                             PlayersNumber = (byte)2
                         });
@@ -317,15 +326,9 @@ namespace PlayStationClub.Data.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<int>("GameId")
-                        .HasColumnType("integer");
-
                     b.HasKey("Id");
 
                     b.HasIndex("FileName")
-                        .IsUnique();
-
-                    b.HasIndex("GameId")
                         .IsUnique();
 
                     b.ToTable("Images");
@@ -334,8 +337,7 @@ namespace PlayStationClub.Data.Migrations
                         new
                         {
                             Id = 1,
-                            FileName = "game-mortal-kombat",
-                            GameId = 1
+                            FileName = "game-mortal-kombat"
                         });
                 });
 
@@ -405,20 +407,20 @@ namespace PlayStationClub.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("PlayStationClub.Data.Entity.Image", b =>
+            modelBuilder.Entity("PlayStationClub.Data.Entity.Game", b =>
                 {
-                    b.HasOne("PlayStationClub.Data.Entity.Game", "Game")
-                        .WithOne("Image")
-                        .HasForeignKey("PlayStationClub.Data.Entity.Image", "GameId")
+                    b.HasOne("PlayStationClub.Data.Entity.Image", "Image")
+                        .WithOne("Game")
+                        .HasForeignKey("PlayStationClub.Data.Entity.Game", "ImageId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Game");
+                    b.Navigation("Image");
                 });
 
-            modelBuilder.Entity("PlayStationClub.Data.Entity.Game", b =>
+            modelBuilder.Entity("PlayStationClub.Data.Entity.Image", b =>
                 {
-                    b.Navigation("Image");
+                    b.Navigation("Game");
                 });
 #pragma warning restore 612, 618
         }
