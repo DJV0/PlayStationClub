@@ -37,6 +37,12 @@ namespace PlayStationClub
                 .AddEntityFrameworkStores<PlayStationClubDbContext>();
             services.AddRazorPages();
 
+            services.ConfigureApplicationCookie(o =>
+            {
+                o.ExpireTimeSpan = TimeSpan.FromDays(1);
+                o.SlidingExpiration = true;
+            });
+            services.Configure<DataProtectionTokenProviderOptions>(o => o.TokenLifespan = TimeSpan.FromHours(3));
             services.AddTransient<IEmailSender, SendGridEmailSender>();
             services.Configure<SendGridEmailSenderOptions>(opt =>
             {
