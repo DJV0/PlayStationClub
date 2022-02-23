@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace PlayStationClub.Services
+namespace PlayStationClub.Infrastructure
 {
     public class SendGridEmailSender : IEmailSender
     {
