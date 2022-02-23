@@ -8,8 +8,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using PlayStationClub.Areas.Identity.Data;
 using PlayStationClub.Data;
-using PlayStationClub.Services;
+using PlayStationClub.Infrastructure;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,11 +31,12 @@ namespace PlayStationClub
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<PlayStationClubDbContext>(options =>
-                options.UseNpgsql(
-                    Configuration.GetConnectionString("GstickDb")));
+                options.UseNpgsql(Configuration.GetConnectionString("GstickDb")));
+            services.AddDbContext<PlayStationClubContext>(options =>
+                options.UseNpgsql(Configuration.GetConnectionString("GstickDb")));
             services.AddDatabaseDeveloperPageExceptionFilter();
-            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-                .AddEntityFrameworkStores<PlayStationClubDbContext>();
+            services.AddDefaultIdentity<PlayStationClubUser>(options => options.SignIn.RequireConfirmedAccount = true)
+                .AddEntityFrameworkStores<PlayStationClubContext>();
             services.AddRazorPages();
 
             services.ConfigureApplicationCookie(o =>
