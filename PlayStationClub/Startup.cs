@@ -44,13 +44,20 @@ namespace PlayStationClub
                 o.ExpireTimeSpan = TimeSpan.FromDays(1);
                 o.SlidingExpiration = true;
             });
-            services.Configure<DataProtectionTokenProviderOptions>(o => o.TokenLifespan = TimeSpan.FromHours(3));
+            services.Configure<DataProtectionTokenProviderOptions>(opt => opt.TokenLifespan = TimeSpan.FromHours(3));
             services.AddTransient<IEmailSender, SendGridEmailSender>();
             services.Configure<SendGridEmailSenderOptions>(opt =>
             {
                 opt.ApiKey = Configuration["EmailSender:SendGrid:Key"];
                 opt.SenderEmail = Configuration["EmailSender:SendGrid:Email"];
                 opt.SenderName = Configuration["EmailSender:SendGrid:User"];
+            });
+
+            services.AddAuthentication().AddGoogle(options =>
+            {
+                IConfigurationSection googleAuthNSection = Configuration.GetSection("Authentication:Google");
+                options.ClientId = googleAuthNSection["ClientId"];
+                options.ClientSecret = googleAuthNSection["ClientSecret"];
             });
         }
 
