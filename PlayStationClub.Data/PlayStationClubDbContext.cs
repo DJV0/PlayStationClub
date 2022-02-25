@@ -14,6 +14,8 @@ namespace PlayStationClub.Data
         public DbSet<Game> Games { get; set; }
         public DbSet<Image> Images { get; set; }
         public DbSet<Room> Rooms { get; set; }
+        public DbSet<Service> Services { get; set; }
+        public DbSet<Session> Sessions { get; set; }
         public PlayStationClubDbContext(DbContextOptions<PlayStationClubDbContext> options)
             : base(options)
         {
@@ -27,6 +29,8 @@ namespace PlayStationClub.Data
             builder.ApplyConfiguration(new CategoryConfigurator());
             builder.ApplyConfiguration(new GameConfigurator());
             builder.ApplyConfiguration(new RoomConfigurator());
+            builder.ApplyConfiguration(new ServiceConfigurator());
+            builder.ApplyConfiguration(new SessionConfigurator());
         }
     }
 }
