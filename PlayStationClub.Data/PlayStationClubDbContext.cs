@@ -8,7 +8,7 @@ using System.Text;
 
 namespace PlayStationClub.Data
 {
-    public class PlayStationClubDbContext : IdentityDbContext
+    public class PlayStationClubDbContext : IdentityDbContext<PlayStationClubUser>
     {
         public DbSet<Category> Categories { get; set; }
         public DbSet<Game> Games { get; set; }
@@ -16,6 +16,7 @@ namespace PlayStationClub.Data
         public DbSet<Room> Rooms { get; set; }
         public DbSet<Service> Services { get; set; }
         public DbSet<Session> Sessions { get; set; }
+        public DbSet<Review> Reviews { get; set; }
         public PlayStationClubDbContext(DbContextOptions<PlayStationClubDbContext> options)
             : base(options)
         {
@@ -31,6 +32,7 @@ namespace PlayStationClub.Data
             builder.ApplyConfiguration(new RoomConfigurator());
             builder.ApplyConfiguration(new ServiceConfigurator());
             builder.ApplyConfiguration(new SessionConfigurator());
+            builder.ApplyConfiguration(new ReviewConfigurator());
         }
     }
 }
