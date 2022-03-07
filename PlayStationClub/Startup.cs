@@ -9,6 +9,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using PlayStationClub.Areas.Identity.Data;
+using PlayStationClub.Areas.Services;
+using PlayStationClub.Areas.Services.Interfaces;
 using PlayStationClub.Data;
 using PlayStationClub.Infrastructure;
 using System;
@@ -59,6 +61,14 @@ namespace PlayStationClub
                 options.ClientId = googleAuthNSection["ClientId"];
                 options.ClientSecret = googleAuthNSection["ClientSecret"];
             });
+
+            services.AddScoped<ICategoryService, CategoryService>();
+            services.AddScoped<IGameService, GameService>();
+            services.AddScoped<IImageService, ImageService>();
+            services.AddScoped<IRoomService, RoomService>();
+            services.AddScoped<IReviewService, ReviewService>();
+            services.AddScoped<IServiceService, ServiceService>();
+            services.AddScoped<ISessionService, SessionService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
