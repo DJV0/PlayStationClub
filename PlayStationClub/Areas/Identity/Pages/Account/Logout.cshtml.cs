@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
-using PlayStationClub.Areas.Identity.Data;
+using PlayStationClub.Data;
 
 namespace PlayStationClub.Areas.Identity.Pages.Account
 {
