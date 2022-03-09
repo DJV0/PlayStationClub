@@ -1,4 +1,5 @@
-﻿using PlayStationClub.Areas.Services.Interfaces;
+﻿using Microsoft.EntityFrameworkCore;
+using PlayStationClub.Areas.Services.Interfaces;
 using PlayStationClub.Data;
 using PlayStationClub.Data.Entity;
 using System;
@@ -13,6 +14,13 @@ namespace PlayStationClub.Areas.Services
         public CategoryService(PlayStationClubDbContext context) : base(context)
         {
 
+        }
+
+        public override async Task<ICollection<Category>> GetAllAsync()
+        {
+            return await dbContext.Categories
+                .Include(c => c.Games)
+                .ToListAsync();
         }
     }
 }

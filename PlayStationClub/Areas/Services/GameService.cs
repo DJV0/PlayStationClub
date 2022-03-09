@@ -1,4 +1,5 @@
-﻿using PlayStationClub.Areas.Services.Interfaces;
+﻿using Microsoft.EntityFrameworkCore;
+using PlayStationClub.Areas.Services.Interfaces;
 using PlayStationClub.Data;
 using PlayStationClub.Data.Entity;
 using System;
@@ -13,6 +14,20 @@ namespace PlayStationClub.Areas.Services
         public GameService(PlayStationClubDbContext context) : base(context)
         {
 
+        }
+
+        public override async Task<ICollection<Game>> GetAllAsync()
+        {
+            return await dbContext.Games
+                .Include(g => g.Image)
+                .ToListAsync();
+        }
+
+        public override async Task<Game> GetByIdAsync(int id)
+        {
+            return await dbContext.Games
+                .Include(g => g.Image)
+                .FirstOrDefaultAsync(g => g.Id == id);
         }
     }
 }
