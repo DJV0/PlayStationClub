@@ -21,13 +21,15 @@ namespace PlayStationClub.Data.Configuration
                 {
                     Id = 1,
                     Text = "text1",
-                    Rating = 5
+                    Rating = 5,
+                    ReceivedDate = new DateTime(2022,3,5,12,0,0)
                 },
                 new Review
                 {
                     Id = 2,
                     Text = "text2",
-                    Rating = 2
+                    Rating = 2,
+                    ReceivedDate = new DateTime(2022,3,8,19,22,00)
                 });
         }
     }
