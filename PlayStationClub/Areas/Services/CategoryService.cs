@@ -22,5 +22,11 @@ namespace PlayStationClub.Areas.Services
                 .Include(c => c.Games)
                 .ToListAsync();
         }
+        public override async Task<Category> GetByIdAsync(int id)
+        {
+            return await dbContext.Categories
+                .Include(c => c.Games)
+                .FirstOrDefaultAsync(c => c.Id == id);
+        }
     }
 }

@@ -20,6 +20,7 @@ namespace PlayStationClub.Areas.Services
         {
             return await dbContext.Games
                 .Include(g => g.Image)
+                .Include(g=>g.Categories)
                 .ToListAsync();
         }
 
@@ -27,6 +28,7 @@ namespace PlayStationClub.Areas.Services
         {
             return await dbContext.Games
                 .Include(g => g.Image)
+                .Include(g => g.Categories)
                 .FirstOrDefaultAsync(g => g.Id == id);
         }
     }
