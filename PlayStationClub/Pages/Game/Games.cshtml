@@ -1,0 +1,22 @@
+﻿@page
+@model PlayStationClub.Pages.Game.GamesModel
+@{
+    ViewData["ImagePath"] = "/images/games/";
+}
+@foreach (var category in Model.Categories)
+{
+    <h2>@category.Name</h2>
+@foreach (var game in @Model.Games.Where(g=>g.Categories.Any(c=>c.Id==category.Id)))
+{
+    <dl>
+        <dt>Name</dt>
+        <dd>@game.Name</dd>
+        <dt>Player number</dt>
+        <dd>@game.PlayersNumber</dd>
+        <dt>Images</dt>
+        <dd>
+            <img src="@(ViewData["ImagePath"]+game.Image.FileName)" />
+        </dd>
+    </dl>
+}
+}
