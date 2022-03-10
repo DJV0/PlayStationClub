@@ -1,0 +1,21 @@
+﻿@page
+@model PlayStationClub.Pages.Room.RoomsModel
+@{
+    ViewData["ImagePath"] = "/images/rooms/";
+}
+@foreach (var room in @Model.Rooms)
+{	 
+<dl>
+    <dt>Name</dt>
+    <dd>@room.Name</dd>
+    <dt>Player number</dt>
+    <dd>@room.PlayersNumber</dd>
+    <dt>Images</dt>
+    <dd>
+    @foreach (var image in room.Images)
+    {
+        <img src="@(ViewData["ImagePath"]+image.FileName)"/>
+    }
+    </dd>
+</dl>
+}
