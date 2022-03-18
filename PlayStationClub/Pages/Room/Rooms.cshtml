@@ -5,17 +5,8 @@
 }
 @foreach (var room in @Model.Rooms)
 {	 
-<dl>
-    <dt>Name</dt>
-    <dd>@room.Name</dd>
-    <dt>Player number</dt>
-    <dd>@room.PlayersNumber</dd>
-    <dt>Images</dt>
-    <dd>
-    @foreach (var image in room.Images)
-    {
-        <img src="@(ViewData["ImagePath"]+image.FileName)"/>
-    }
-    </dd>
-</dl>
+<div>
+    <img src="@(ViewData["ImagePath"]+room.Images.First().FileName)"/>
+    <a asp-page="/Room/RoomDetails" asp-route-id="@room.Id">@room.Name</a>
+</div>
 }
