@@ -16,6 +16,9 @@ namespace PlayStationClub.Pages.Room
         private readonly IMapper _mapper;
         public RoomViewModel Room { get; set; }
 
+        [BindProperty]
+        public OrderViewModel Order { get; set; }
+
         public RoomDetailsModel(IRoomService roomService, IMapper mapper)
         {
             _roomService = roomService;
@@ -24,6 +27,11 @@ namespace PlayStationClub.Pages.Room
         public async Task OnGet(int id)
         {
             Room = _mapper.Map<RoomViewModel>(await _roomService.GetByIdAsync(id));
+        }
+
+        public void OnPostOrderSession()
+        {
+
         }
     }
 }
